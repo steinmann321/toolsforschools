@@ -1,8 +1,9 @@
 package de.toolsforschools.eventplanner;
 
 
-import de.toolsforschools.eventplanner.models.School;
-import de.toolsforschools.eventplanner.repositories.SchoolRepository;
+import de.toolsforschools.eventplanner.services.H2DBService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,13 +20,12 @@ public class EventplannerApplication {
 		SpringApplication.run(EventplannerApplication.class, args);
 	}
 
+	@Autowired
+	private H2DBService service;
 	@Bean
-	ApplicationRunner init(SchoolRepository schoolRepository) {
+	ApplicationRunner init() {
 		return args -> {
-			School car = new School();
-			car.setName("Rudolf-Steiner-Schule");
-			schoolRepository.save(car);
-			schoolRepository.findAll().forEach(System.out::println);
+				service.initDefaultData();
 		};
 	}
 }
