@@ -1,8 +1,12 @@
 $(document).ready(function() {
+    notreadyye();
+});
+
+function notreadyye() {
     $('.notreadyyet').on('click', function() {
         alert("Not implemeted yet.")
     });
-});
+}
 
 function l(m) { console.log(m);};
 var tfcmanager = window.tfcmanager || {
@@ -38,6 +42,7 @@ var tfcmanager = window.tfcmanager || {
             var id = $(this).data('id');
             tfcmanager.activeEventId = id;
             $('#content').load('/todos/' + id + '/' + tfcmanager.activeGradeId, function() {
+                notreadyye();
             });
             tfcmanager.toggleNavButton($(this));
         });
