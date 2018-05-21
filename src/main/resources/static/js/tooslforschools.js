@@ -4,6 +4,8 @@ $(document).ready(function() {
 
 function l(m) { console.log(m);};
 var tfcmanager = window.tfcmanager || {
+    activeGradeId: 0,
+    activeEventId: 0,
     toggleNavButton: function(el) {
         $('.list-group button').removeClass('active');
         el.addClass('active');
@@ -16,6 +18,7 @@ var tfcmanager = window.tfcmanager || {
     bindGradesClickEvents: function() {
         $('.grade-item').on('click', function() {
             var id = $(this).data('id');
+            tfcmanager.activeGradeId = id;
             var evtid = "event-container-" + id;
             $('.events-list').hide();
             if(!$('#' + evtid).length ) {
@@ -31,7 +34,8 @@ var tfcmanager = window.tfcmanager || {
     bindEventClickEvent: function() {
         $('.event-item').on('click', function() {
             var id = $(this).data('id');
-            $('#content').load('/todos/' + id, function() {
+            tfcmanager.activeEventId = id;
+            $('#content').load('/todos/' + id + '/' + tfcmanager.activeGradeId, function() {
             });
             tfcmanager.toggleNavButton($(this));
         });
