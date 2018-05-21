@@ -49,14 +49,6 @@ public class IndexController {
 	@RequestMapping(value="/todos/{eventId}/{gradeId}", method = RequestMethod.GET)
 	public ModelAndView todoList(@PathVariable Long eventId, @PathVariable Long gradeId) {
 		ModelAndView mv = new ModelAndView("fragments/todos :: todos-list");
-		List<Todolist> td = dbService.getTodoListByEventIdAndGradeId(eventId, gradeId);
-		Todolist t = td.get(0);
-		List<TodolistItem> tlsi = t.getTodolistItems();
-
-
-		List<TodolistItem> tlsi2 = (List<TodolistItem>) rtest.findAll();
-
-
 		mv.addObject("todos", dbService.getTodoListByEventIdAndGradeId(eventId, gradeId));
 		return mv;
 	}

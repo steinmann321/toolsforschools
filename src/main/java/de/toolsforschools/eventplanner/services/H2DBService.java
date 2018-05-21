@@ -34,6 +34,7 @@ public class H2DBService extends SpringDBService{
 			e.printStackTrace();
 		}
 
+		Random rand = new Random();
 		schoolRepository.findAll().forEach(school -> {
 			List<Grade> gradeList = new ArrayList<>();
 			List<Todolist> todoList = new ArrayList<>();
@@ -50,13 +51,29 @@ public class H2DBService extends SpringDBService{
 					t.setName(String.format("ToDo-Liste %s", evt.getName()));
 					t.setEvent(evt);
 					t.setGrade(g);
+
+					List<TodolistItem> todoListItemList = new ArrayList<>();
+					for(String todoListItemName: TODO_LIST_ITEMS) {
+						// randomly skip some to make dummy date look better
+						if((rand.nextInt(10) +1) % 2 == 0) {
+							continue;
+						}
+						TodolistItem todoListItem = new TodolistItem();
+						todoListItem.setName(todoListItemName);
+						int amt = rand.nextInt(10) + 1;
+						todoListItem.setAmountNeeded(Long.valueOf(amt));
+						todoListItem.setAmountReady(Long.valueOf(rand.nextInt(amt)) + 1);
+						todoListItemList.add(todoListItem);
+					}
+					t.setTodolistItems(todoListItemList);
 					todoList.add(t);
+					todolistItemRepository.saveAll(todoListItemList);
 				});
 			}
 			gradeRepository.saveAll(gradeList);
 			todolistRepository.saveAll(todoList);
 		});
-
+/*
 		Random rand = new Random();
 		todolistRepository.findAll().forEach(todoList -> {
 			List<TodolistItem> todoListItemList = new ArrayList<>();
@@ -66,12 +83,11 @@ public class H2DBService extends SpringDBService{
 				}
 				TodolistItem todoListItem = new TodolistItem();
 				todoListItem.setName(todoListItemName);
-				todoListItem.setTodolist(todoList);
 				todoListItemList.add(todoListItem);
 			}
 			todolistItemRepository.saveAll(todoListItemList);
 		});
-
+*/
 		System.out.println("Dummy data ready");
 		System.out.println("------------- schools ------------");
 		schoolRepository.findAll().forEach(System.out::println);

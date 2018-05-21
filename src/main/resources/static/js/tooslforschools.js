@@ -1,5 +1,7 @@
 $(document).ready(function() {
-
+    $('.notreadyyet').on('click', function() {
+        alert("Not implemeted yet.")
+    });
 });
 
 function l(m) { console.log(m);};

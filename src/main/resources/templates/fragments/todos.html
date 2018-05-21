@@ -4,31 +4,41 @@
 <div th:fragment="todos-list">
     <ul class="nav nav-tabs">
         <th:block th:each="todo : ${todos}">
-            <li><a data-toggle="tab" href="#home" th:text="${todo.name}">Home</a></li>
+            <li><a data-toggle="tab" th:href="'#todolist-' + ${todo.id}" th:text="${todo.name}">Home</a></li>
         </th:block>
     </ul>
     <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-            <h3>HOME</h3>
-            <p>Some content.</p>
-        </div>
-        <div id="menu1" class="tab-pane fade">
-            <h3>Menu 1</h3>
-            <p>Some content in menu 1.</p>
-        </div>
-        <div id="menu2" class="tab-pane fade">
-            <h3>Menu 2</h3>
-            <p>Some content in menu 2.</p>
-        </div>
+        <th:block th:each="todo : ${todos}">
+            <div id="'#todolist-' + ${todo.id}" class="tab-pane fade in active">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Bezeichnung</th>
+                        <th scope="col">Benötigte Menge</th>
+                        <th scope="col">Vorhandene Menge</th>
+                        <th scope="col">Eintragen!</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="todoitem,iter : ${todo.getTodolistItems()}">
+                        <tr th:classappend="${todoitem.amountNeeded}  == ${todoitem.amountReady} ? alert-success">
+                            <td th:text="${iter.index}"></td>
+                            <td th:text="${todoitem.name}"></td>
+                            <td th:text="${todoitem.amountNeeded}"></td>
+                            <td th:text="${todoitem.amountReady}"></td>
+                            <td>
+                                <button type="button" class="notreadyyet btn btn-primary btn-block btn-assign-me"
+                                        th:attrappend="disabled=${todoitem.amountNeeded}  == ${todoitem.amountReady} ? 'disabled'"
+                                        th:data-id="${todoitem.id}">Hier will ich helfen</button>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
     </div>
 </div>
-
-<!--
-<li><a data-toggle="tab" href="#home">Home</a></li>
-<li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-<li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
--->
-
-
 </body>
 </html>

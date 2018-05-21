@@ -15,7 +15,6 @@ public class TodolistItem {
 	@GeneratedValue
 	private Long id;
 	private @NonNull String name;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "todolist_id")
-	private @NonNull Todolist todolist;
+	private @NonNull Long amountNeeded;
+	private @NonNull Long amountReady;
 }
