@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="grades-list">
+    <ul class="list-group">
+        <th:block th:each="grade : ${grades}">
+            <li class="list-group-item">
+                <button type="button" class="btn btn-primary btn-block grade-item"
+                        th:data-id="${grade.id}"
+                        th:text="${grade.name} + ' (Lehrer/in: ' + ${grade.teacherName} + ')'"></button>
+            </li>
+        </th:block>
+    </ul>
+</div>
+</body>
+</html>

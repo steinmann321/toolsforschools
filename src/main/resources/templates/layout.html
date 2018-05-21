@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Default Title</title>
+    <link rel="stylesheet" th:href="@{/lib/bootstrap-3.3.7-dist/css/bootstrap.min.css}"></link>
+    <link rel="stylesheet" th:href="@{/css/tooslforschools.css}"></link>
+
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <div class="jumbotron">
+            <span th:insert="~{fragments/header :: topnav}"></span>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <section layout:fragment="left-nav">
+                <p>Page content goes here</p>
+            </section>
+        </div>
+        <div class="col-md-8">
+            <section layout:fragment="content">
+                <p>Page content goes here</p>
+            </section>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <p class="text-muted">
+        <div th:insert="~{fragments/footer :: copyright}"></div>
+        </p>
+    </div>
+</footer>
+
+<!-- page script libraries -->
+<script type="text/javascript" th:src="@{/lib/jquery-3.3.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/lib/bootstrap-3.3.7-dist/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/tooslforschools.js}"></script>
+<!-- add scripts here -->
+<th:block layout:fragment="script"></th:block>
+</body>
+</html>

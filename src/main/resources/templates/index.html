@@ -1,20 +1,30 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Come and get some work</title>
+</head>
 <body>
-<h1>Demo</h1>
-<div>Hello World AAdAAas</div>
-<div>Hello World AAdAAas</div>
-<div>Hello World AAdAAas</div>
 
-<h1 th:text="${title}"></h1>
-<h1 th:text="${schools}"></h1>
+<section layout:fragment="left-nav">
+    <div id="grades-list"></div>
+</section>
 
-<table>
-    <tr th:each="school : ${schools}">
-        <td th:text="${school.id}"></td>
-        <td th:text="${school.name}"></td>
-    </tr>
-</table>
+<section layout:fragment="content">
+    <div id="content">
+        <div class="jumbotron"><h2>Welcome to our school event helper!</h2></div>
+        <h3>
+            First time here?
+        </h3>
+    </div>
+</section>
 
+<th:block layout:fragment="script">
+<script>
+$(document).ready(function() {
+    tfcmanager.loadGrades($('#grades-list'));
+});
+</script>
+</th:block>
 </body>
 </html>

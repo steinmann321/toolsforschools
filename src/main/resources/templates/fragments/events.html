@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="events-list">
+    <ul class="list-group">
+        <th:block th:each="event : ${events}">
+            <li class="list-group-item">
+                <button type="button" class="btn btn-primary btn-block event-item"
+                        th:data-id="${event.id}"
+                        th:text="${event.name} + ' am ' + ${#dates.format(event.targetDate, 'dd.MM.yyy')}"></button>
+            </li>
+        </th:block>
+    </ul>
+</div>
+</body>
+</html>

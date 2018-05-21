@@ -5,8 +5,11 @@ import de.toolsforschools.eventplanner.models.Todolist;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface TodolistRepository extends CrudRepository<Todolist, Long> {
+	List<Todolist> findByEvent_Id(Long eventId);
 }
 

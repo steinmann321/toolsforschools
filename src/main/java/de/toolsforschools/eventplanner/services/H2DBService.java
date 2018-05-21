@@ -25,6 +25,15 @@ public class H2DBService extends SpringDBService{
 		s.setName("Rudolf-Steiner-Schule");
 		schoolRepository.save(s);
 
+		List<Event> eventList = new ArrayList<>();
+		try {
+			eventList.add(new Event(SUMMER_EVENT_NAME, "26.06.2018"));
+			eventList.add(new Event(WINTER_EVENT_NAME, "17.11.2018"));
+			eventRepository.saveAll(eventList);
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 		schoolRepository.findAll().forEach(school -> {
 			List<Grade> gradeList = new ArrayList<>();
 			List<Todolist> todoList = new ArrayList<>();
@@ -35,26 +44,17 @@ public class H2DBService extends SpringDBService{
 				g.setTeacherName(RandomStringUtils.randomAlphabetic(10));
 				g.setSchool(school);
 				gradeList.add(g);
-				// add todolist to grade
-				Todolist t1 = new Todolist();
-				t1.setName(String.format("Liste für den %s", SUMMER_EVENT_NAME));
-				todoList.add(t1);
-				Todolist t2 = new Todolist();
-				t2.setName(String.format("Liste für das %s", WINTER_EVENT_NAME));
-				todoList.add(t2);
+				// add todolist to grade and event
+				eventRepository.findAll().forEach(evt -> {
+					Todolist t = new Todolist();
+					t.setName(String.format("ToDo-Liste %s", evt.getName()));
+					t.setEvent(evt);
+					todoList.add(t);
+				});
 			}
 			gradeRepository.saveAll(gradeList);
 			todolistRepository.saveAll(todoList);
 		});
-
-		List<Event> eventList = new ArrayList<>();
-		try {
-			eventList.add(new Event(SUMMER_EVENT_NAME, "26.06.2018"));
-			eventList.add(new Event(WINTER_EVENT_NAME, "17.11.2018"));
-			eventRepository.saveAll(eventList);
-		}catch (ParseException e) {
-			e.printStackTrace();
-		}
 
 		Random rand = new Random();
 		todolistRepository.findAll().forEach(todoList -> {
