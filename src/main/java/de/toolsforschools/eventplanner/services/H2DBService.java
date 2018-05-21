@@ -14,9 +14,9 @@ public class H2DBService extends SpringDBService{
 	/*
 	some constants for dummy data;
 	 */
-	public static final String SUMMER_EVENT_NAME = "Sommermarkt";
-	public static final String WINTER_EVENT_NAME = "Winterfest";
-	public static String[] TODO_LIST_ITEMS = {"Kuchen","Salat","Aufbauen","Abbauen"};
+	private static final String SUMMER_EVENT_NAME = "Sommermarkt";
+	private static final String WINTER_EVENT_NAME = "Winterfest";
+	private static String[] TODO_LIST_ITEMS = {"Kuchen","Salat","Aufbauen","Abbauen"};
 	/**
 	 * this will set up some dummy data to start with
 	 */
@@ -49,6 +49,7 @@ public class H2DBService extends SpringDBService{
 					Todolist t = new Todolist();
 					t.setName(String.format("ToDo-Liste %s", evt.getName()));
 					t.setEvent(evt);
+					t.setGrade(g);
 					todoList.add(t);
 				});
 			}

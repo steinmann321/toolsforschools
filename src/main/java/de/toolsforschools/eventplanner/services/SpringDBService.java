@@ -34,12 +34,12 @@ public class SpringDBService implements IDBService {
 	}
 
 	@Override
-	public List<Todolist> getTodoListByEvent(Event event) {
-		return this.getTodoListByEventId(event.getId());
+	public List<Todolist> getTodoListByEventAndGrade(Event event, Grade grade) {
+		return this.getTodoListByEventIdAndGradeId(event.getId(), grade.getId());
 	}
 
 	@Override
-	public List<Todolist> getTodoListByEventId(Long eventId) {
-		return todolistRepository.findByEvent_Id(eventId);
+	public List<Todolist> getTodoListByEventIdAndGradeId(Long eventId, Long gradeId) {
+		return todolistRepository.findByEvent_IdAndGrade_Id(eventId, gradeId);
 	}
 }

@@ -1,7 +1,10 @@
 package de.toolsforschools.eventplanner.controllers;
 
 import de.toolsforschools.eventplanner.models.Grade;
+import de.toolsforschools.eventplanner.models.Todolist;
+import de.toolsforschools.eventplanner.models.TodolistItem;
 import de.toolsforschools.eventplanner.repositories.SchoolRepository;
+import de.toolsforschools.eventplanner.repositories.TodolistItemRepository;
 import de.toolsforschools.eventplanner.services.H2DBService;
 import de.toolsforschools.eventplanner.services.SpringDBService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ import java.util.List;
 public class IndexController {
 	@Autowired
 	private H2DBService dbService;
+	@Autowired
+	private TodolistItemRepository rtest;
 
 	@RequestMapping(value={"", "/", "/index"}, method = RequestMethod.GET)
 	public ModelAndView index() {
@@ -41,10 +46,18 @@ public class IndexController {
 		return mv;
 	}
 
-	@RequestMapping(value="/todos/{eventId}", method = RequestMethod.GET)
-	public ModelAndView todoList(@PathVariable Long eventId) {
+	@RequestMapping(value="/todos/{eventId}/{gradeId}", method = RequestMethod.GET)
+	public ModelAndView todoList(@PathVariable Long eventId, @PathVariable Long gradeId) {
 		ModelAndView mv = new ModelAndView("fragments/todos :: todos-list");
-		mv.addObject("todos", dbService.getTodoListByEventId(eventId));
+		List<Todolist> td = dbService.getTodoListByEventIdAndGradeId(eventId, gradeId);
+		Todolist t = td.get(0);
+		List<TodolistItem> tlsi = t.getTodolistItems();
+
+
+		List<TodolistItem> tlsi2 = (List<TodolistItem>) rtest.findAll();
+
+
+		mv.addObject("todos", dbService.getTodoListByEventIdAndGradeId(eventId, gradeId));
 		return mv;
 	}
 }

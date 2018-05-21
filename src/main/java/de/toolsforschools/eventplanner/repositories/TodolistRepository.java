@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface TodolistRepository extends CrudRepository<Todolist, Long> {
-	List<Todolist> findByEvent_Id(Long eventId);
+	List<Todolist> findByEvent_IdAndGrade_Id(Long eventId, Long gradeId);
 }
 

@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,4 +20,10 @@ public class Todolist {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "event_id")
 	private @NonNull Event event;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "grade_id")
+	private @NonNull Grade grade;
+	@OneToMany(fetch = FetchType.LAZY)
+	@JoinColumn(name = "todolistitem_id")
+	private List<TodolistItem> todolistItems;
 }
